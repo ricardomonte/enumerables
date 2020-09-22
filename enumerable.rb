@@ -25,4 +25,36 @@ module Enumerable
     end
     arr  
   end
+
+  def my_all
+    test = true 
+    my_each do |i|
+    if block_given?
+      if !yield(i)
+        test = false
+      end
+    else !block_given?
+      if i == false || i == nil
+        test = false
+      end
+    end
+  end
+   puts test
+  end
+
+  def my_all
+    test = true 
+    my_each do |i|
+    if block_given?
+      if !yield(i)
+        test = false
+      end
+    else !block_given?
+      if i == false || i == nil
+        test = false
+      end
+    end
+  end
+   puts test
+  end
 end

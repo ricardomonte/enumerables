@@ -76,29 +76,46 @@ module Enumerable
 
   def my_count(*arg)
     sum = 0
-    puts arg
+    case
+      when arg.empty? == true and block_given? == false
+        my_each do |i|
+          if yield(i)
+            sum += 1
+          end
+        end
+        sum
+      when arg.empty? == false
+        my_each do |i|
+          if arg[0] == i
+          sum += 1
+          end
+        end
+        sum
+    else
+      self.length
+    end
+  end
+
+  def my_map
+    return to_enum(:my_map) unless block_given?
+    arr = []
+    my_each do |i|
+      arr.push(yield(i))
+    end
+    arr
+  end
+
+  def my_inject(*arg)
     if arg.empty?
       my_each do |i|
-        if yield(i)
-          sum += 1
-        end
-      end
-    else
-      my_each do |i|
-        if arg[0] == i
-        sum += 1
-        end
+        yield(memo, i)
       end
     end
-    puts sum
+    memo
   end
 end
 
-#%w[ant bear cat].my_none { |word| word.length >= 4}
-#[1, 3.14, 42].my_none(Float)
-#[].my_any
 
-#[1, 2, 4, 2, 3, 8].my_count{ |x| x%2==0}
-#[1, 2, 4, 2].my_count
-
-[1, 2, 4, 3, 9, 7, 12].my_count{ |x| x%3==0}
+# puts [1, 2, 4, 2, 5, 7].my_count
+puts [1, 2, 4, 2, 3, 8, 6, 2].my_count
+puts (5..10).inject { |sum, n| sum + n }  

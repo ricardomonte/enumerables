@@ -122,27 +122,24 @@ module Enumerable
         memo = yield(arg[0], i)
         arg[0] = memo
       end
-      return memo
+      return memo  
     end
     if arg[0].is_a? Symbol
-      puts arg[0].is_a?(Symbol)
+      memo = 0
       my_each do |i|
-        send(i)
+        memo = memo.send(arg[0], i)
       end
+      return memo
+    end
+    if arg.length == 2
+      memo = 0
+      my_each do |i|
+        arg[0] = arg[0].send(arg[1],i)
+        memo = arg[0]
+      end
+      return memo
     end
   end
 end
 
 
-puts (5..10).my_inject(:+) 
-# puts (5..10).my_inject { |sum, n| sum + n }  
-# puts (5..10).my_inject(1) { |product, n| product * n }
-# puts [1, 2, 4, 2, 5, 7].my_count
-puts [1, 2, 4, 2, 3, 8, 6, 2].my_count(2)
-puts [1, 2, 4, 2, 3, 8, 6, 2].my_count
-puts [1, 2, 4, 2, 3, 8, 6, 2].my_count{ |x| x%2==0}
-
-
-
-
-#puts (5..10).inject { |sum, n| sum + n }  

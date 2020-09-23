@@ -1,5 +1,4 @@
 # rubocop:disable Style/CaseEquality
-
 module Enumerable
   def my_each
     return to_enum(:my_each)unless block_given?
@@ -154,9 +153,3 @@ module Enumerable
   end
 
 end
-
-a = Proc.new {|n| n*3}
-p [1, 1, 1].my_map(a)
-
-
-p [2, 2, 2].my_map{|n| n*3}

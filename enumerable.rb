@@ -78,27 +78,20 @@ module Enumerable
     sum = 0
     puts arg
     if arg.empty?
-      if block_given?
-        my_each do |i|
-          if yield(i)
-            sum += 1
-          end
-        end
-      else !block_given?
-        my_each do |i|
+      my_each do |i|
+        if yield(i)
           sum += 1
         end
       end
     else
       my_each do |i|
-        if arg == i
-          sum += 1
-          puts sum
+        if arg[0] == i
+        sum += 1
         end
+      end
     end
-
+    puts sum
   end
-end
 end
 
 #%w[ant bear cat].my_none { |word| word.length >= 4}
@@ -108,4 +101,4 @@ end
 #[1, 2, 4, 2, 3, 8].my_count{ |x| x%2==0}
 #[1, 2, 4, 2].my_count
 
-[1, 2, 4, 2].my_count(2)
+[1, 2, 4, 3, 9, 7, 12].my_count{ |x| x%3==0}

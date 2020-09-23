@@ -99,13 +99,21 @@ module Enumerable
     end
   end
 
-  def my_map
-    return to_enum(:my_map) unless block_given?
-    arr = []
-    my_each do |i|
-      arr.push(yield(i))
+  def my_map(arg = nil)
+    if arg
+      arr = []
+      my_each do |i|
+        arr.push(arg.call(i))
+      end
+      return arr
     end
-    arr
+    if block_given?
+      arr = []
+      my_each do |i|
+        arr.push(yield(i))
+      end
+      return arr
+    end
   end
 
   def my_inject(*arg)
@@ -140,6 +148,15 @@ module Enumerable
       return memo
     end
   end
+
+  def multiply_els
+    my_inject(1, :*)
+  end
+
 end
 
+a = Proc.new {|n| n*3}
+p [1, 1, 1].my_map(a)
 
+
+p [2, 2, 2].my_map{|n| n*3}

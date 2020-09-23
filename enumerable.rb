@@ -74,27 +74,30 @@ module Enumerable
     puts test
   end
 
-  # def my_count(*arg)
-  #   sum = 0
-  #   case
-  #     when arg.empty? == true and block_given? == false
-  #       my_each do |i|
-  #         if yield(i)
-  #           sum += 1
-  #         end
-  #       end
-  #       sum
-  #     when arg.empty? == false
-  #       my_each do |i|
-  #         if arg[0] == i
-  #         sum += 1
-  #         end
-  #       end
-  #       sum
-  #   else
-  #     self.length
-  #   end
-  # end
+  def my_count(*arg)
+    sum = 0
+    if block_given?
+      puts("Con un bloque y sin argumento")
+      my_each do |i|
+        if yield(i)
+          sum += 1
+        end
+      end
+      sum
+    elsif arg.empty?
+      puts("Sin un bloque y sin argumento")
+      self.length
+    else
+      puts("Con argumento y sin bloque")
+      my_each do |i|
+        if arg[0] == i
+        sum += 1
+        end
+      end
+      sum
+      
+    end
+  end
 
   def my_map
     return to_enum(:my_map) unless block_given?
@@ -134,3 +137,12 @@ end
 puts (5..10).my_inject(:+) 
 # puts (5..10).my_inject { |sum, n| sum + n }  
 # puts (5..10).my_inject(1) { |product, n| product * n }
+# puts [1, 2, 4, 2, 5, 7].my_count
+puts [1, 2, 4, 2, 3, 8, 6, 2].my_count(2)
+puts [1, 2, 4, 2, 3, 8, 6, 2].my_count
+puts [1, 2, 4, 2, 3, 8, 6, 2].my_count{ |x| x%2==0}
+
+
+
+
+#puts (5..10).inject { |sum, n| sum + n }  

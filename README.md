@@ -17,7 +17,7 @@ Ruby
 
 ## Live Demo
 
-[Click for live webpage](https://repl.it/@edxco/AdeptUntrueDatamining)
+[Click for live webpage](https://repl.it/@edxco/enumerables#main.rb)
 
 ## Getting Started
 

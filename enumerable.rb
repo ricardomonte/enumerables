@@ -2,7 +2,7 @@
 module Enumerable
   def my_each
     return to_enum(:my_each)unless block_given?
-    for i in (self) do
+    while i <= self.length
       yield(i)
     end
   end
@@ -153,3 +153,6 @@ module Enumerable
   end
 
 end
+
+ary = [1,2,3,4,5]
+p ary.my_each

@@ -5,7 +5,7 @@ In this project we:
 - Used Ruby to implement the algorithm.
 - Created a script file to house the following methods: my_each, my_each_with_index, my_select, my_all?, my_any?, my_none?, my_count, my_map and my_inject.
 
-![screenshot](images/screenshot.png)
+![screenshot](image/screenshot.png)
 
 # What it does
 

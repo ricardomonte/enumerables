@@ -9,7 +9,8 @@ In this project we:
 
 # What it does
 
-This script provides collection classes with several traversal and searching methods, and with the ability to sort. 
+ Our Enumerable module mixin provides collection classes with several traversal and searching methods, and with the ability to sort. 
+ The class must provide a method each, which yields successive members of the collection.
 
 ## Built with
 

@@ -33,26 +33,25 @@ module Enumerable
     arr
   end
 
-  def my_all?(arg = nil)
+  def my_all?(arg = nil, &block)
     var = to_a
-    result = true
-    var.my_each do |n|
-      if block_given?
-        if yield(n)
-          result = true
-        elsif !yield(n)
-          result = false
-        end
-      elsif arg.nil?
-        result = false if n.nil? || n == false
+    if block_given?
+      return var.my_select { |i| yield(i)}.length == var.length
+    end
+    unless block_given?
+      if arg.nil?
+        return var.my_select { |i| i.nil? || i == false}.length == 0
+        return !var.empty?
+      end
+      if arg.kind_of? Class
+        return var.my_select { |i| i.kind_of? arg}.length == var.length
+      end
+      if arg.kind_of? Regexp
+        return var.my_select {|i| arg.match?(i)}.length == var.length
       else
-        if arg === n
-          result = false
-          break
-        end
+        return var.my_select {|i| arg == i}.length == var.length
       end
     end
-    result
   end
 
   def my_any?(arg = nil)

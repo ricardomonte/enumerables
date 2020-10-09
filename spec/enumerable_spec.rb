@@ -182,6 +182,32 @@ describe Enumerable do
       end
     end
   end
+
+  describe '#my_map' do
+    context 'with a proc given' do
+      it 'Returns a new array with the results of running proc once for every element in collection.' do
+        proc = proc { |x| x * 2 }
+        expect(array.my_map(&proc)).to match_array array2
+        expect(array.my_map(&proc)).to_not match_array array
+      end
+    end
+
+    context 'with a block given' do
+      it 'Returns a new array with the results of running block once for every element in the collection.' do
+        expect(array.my_map{ |x| x * 2 }).to match_array array2
+        expect(array.my_map{ |x| x * 2 }).to_not match_array array
+      end
+    end
+
+    context 'with (no block && no argument) given' do
+      it 'returns an Enumerator ' do
+        expect(array.my_map.is_a?(Enumerator)).to eq(true)
+        expect(array.my_map.is_a?(Enumerator)).to_not match_array array
+      end
+      
+    end
+
+  end
 end
 
 # rubocop:enable Layout/LineLength

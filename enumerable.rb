@@ -178,3 +178,7 @@ end
 def multiply_els(arg)
   arg.my_inject(:*)
 end
+
+
+
+

@@ -261,7 +261,7 @@ describe Enumerable do
           expect(array.my_count).to_not eq(array.length - 1)
         end
       end
-      context 'with a range'
+      context 'with a range' do
         it 'Returns the number of items in the collection' do
           expect(range.my_count).to eq(4)
           expect(range.my_count).to_not eq(3)

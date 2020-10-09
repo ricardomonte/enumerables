@@ -140,7 +140,8 @@ module Enumerable
       var2.my_each { |i| memo = yield(memo, i) }
       return memo
     end
-    if arg.empty?
+    #no argumennt
+    if arg.empty? 
       var2.my_each { |i| memo = yield(memo, i) }
       return memo
     end
@@ -179,6 +180,11 @@ def multiply_els(arg)
   arg.my_inject(:*)
 end
 
+longest = %w{ cat sheep bear }.my_inject do |memo, word|
+  memo.length > word.length ? memo : word
+end
+p (1...5).my_inject { |sum, n| sum + n }
 
+puts longest
 
 

@@ -208,6 +208,32 @@ describe Enumerable do
     end
 
   end
+  describe '#my_inject' do
+    context 'with block given and not argument' do
+      it 'Combines all elements of the collection by applying a binary operation, specified by a block' do
+        expect(animal.my_inject{|memo, word| memo.length > word.length ? memo : word}).to eq (animal.inject{|memo, word| memo.length > word.length ? memo : word})
+      end
+      # it 'not' do
+      #   expect(range.my_inject { |sum, n| sum + n }).to_not eq (9)
+      # end
+    end
+
+    context 'with block and argument given' do
+      it 'base on the block' do
+        expect(array.my_inject(1) { |product, n| product * n }).to eq(array.inject(1) { |product, n| product * n })
+      end
+    end
+    context 'with no block and argument given' do 
+      it 'combine all element in the collection base on the given symbol as an argument' do
+        expect(range.my_inject(:+)).to eq (range.inject(:+))
+      end
+    end
+    context 'with no block and two arguments' do
+      it 'something' do
+        expect(array2.my_inject(1, :*)).to eq (array2.inject(1, :*))
+      end
+    end
+  end
 end
 
 # rubocop:enable Layout/LineLength

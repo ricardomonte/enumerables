@@ -1,3 +1,5 @@
+# rubocop:disable Layout/LineLength
+
 require './enumerable'
 
 describe Enumerable do
@@ -9,7 +11,7 @@ describe Enumerable do
   describe '#my_each' do
     context 'with a block given' do
       it 'return an array' do
-        expect(array.my_each { |x| x }).to eq(array.each { |x| x })
+        expect(array.my_each { |num| puts num }).to eq(array.each { |num| puts num })
       end
     end
 
@@ -40,7 +42,6 @@ describe Enumerable do
     end
   end
   describe '#my_each_with_index' do
-
     context 'Not block given' do
       it 'return an Enumerator' do
         expect(array.my_each_with_index).to be_kind_of Enumerator
@@ -94,7 +95,6 @@ describe Enumerable do
     context 'when a block given passes each element of the collection to that block' do
       it 'The method returns true if the block never returns false or nil.' do
         expect(array.my_all? { |num| num.is_a?(Integer) }).to eq(true)
-  
       end
       it 'The method returns false if one of the elements returns false or nil.' do
         expect(animal.my_all? { |word| word.length >= 4 }).to eq(false)
@@ -110,7 +110,7 @@ describe Enumerable do
       context 'the collection has at least one element nil or false' do
         it 'return false' do
           array = [nil, 1, true]
-          expect(array.my_all?).to eql(false) 
+          expect(array.my_all?).to eql(false)
         end
       end
     end
@@ -246,7 +246,6 @@ describe Enumerable do
         end
       end
       context 'with a range' do
-
         it 'counts the number of items in the collection that are eql to the argument' do
           expect(range.my_count(&:even?)).to eq(2)
           expect(range.my_count(&:odd?)).not_to eq(0)
@@ -272,59 +271,81 @@ describe Enumerable do
 
   describe '#my_map' do
     context 'with a proc given' do
-      it 'Returns a new array with the results of running proc once for every element in collection.' do
-        proc = proc { |x| x * 2 }
-        expect(array.my_map(&proc)).to match_array array2
-        expect(array.my_map(&proc)).to_not match_array array
+      context 'with an array' do
+        it 'Returns a new array with the results of running proc once for every element in collection.' do
+          proc = proc { |x| x * 2 }
+          expect(array.my_map(&proc)).to match_array array2
+          expect(array.my_map(&proc)).to_not match_array array
+        end
+      end
+      context 'with a range' do
+        it 'Returns a new array with the results of running proc once for every element in collection.' do
+          proc = proc { |x| x * 2 }
+          expect(range.my_map(&proc)).to match_array array2
+          expect(range.my_map(&proc)).to_not match_array array
+        end
       end
     end
 
     context 'with a block given' do
-      it 'Returns a new array with the results of running block once for every element in the collection.' do
-        expect(array.my_map{ |x| x * 2 }).to match_array array2
-        expect(array.my_map{ |x| x * 2 }).to_not match_array array
+      context 'with an array' do
+        it 'Returns a new array with the results of running block once for every element in the collection.' do
+          expect(array.my_map { |x| x * 2 }).to match_array array2
+          expect(array.my_map { |x| x * 2 }).to_not match_array array
+        end
+      end
+      context 'with a range' do
+        it 'Returns a new array with the results of running block once for every element in the collection.' do
+          expect(range.my_map { |x| x * 2 }).to match_array array2
+          expect(range.my_map { |x| x * 2 }).to_not match_array array
+        end
       end
     end
 
     context 'with (no block && no argument) given' do
-      it 'returns an Enumerator ' do
-        expect(array.my_map.is_a?(Enumerator)).to eq(true)
-        expect(array.my_map.is_a?(Enumerator)).to_not match_array array
+      context 'with an array' do
+        it 'returns an Enumerator ' do
+          expect(array.my_map.is_a?(Enumerator)).to eq(true)
+          expect(array.my_map.is_a?(Enumerator)).to_not match_array array
+        end
       end
-      
+      context 'with a range' do
+        it 'returns an Enumerator ' do
+          expect(range.my_map.is_a?(Enumerator)).to eq(true)
+          expect(range.my_map.is_a?(Enumerator)).to_not match_array array
+        end
+      end
     end
   end
   describe '#my_inject' do
     context 'a block is given' do
       context 'with no argument' do
-          it 'goes over array one by one and returns the vlaue by applying a binary operation, specified by this block ' do
-            expect(animal.my_inject{|memo, word| memo.length > word.length ? memo : word}).to eq (animal.inject{|memo, word| memo.length > word.length ? memo : word})
-          end
+        it 'goes over array one by one and returns the vlaue by applying a binary operation, specified by this block' do
+          expect(animal.my_inject { |memo, word| memo.length > word.length ? memo : word }).to eq(animal.inject { |memo, word| memo.length > word.length ? memo : word })
+        end
       end
-      
+
       context '&& one argument' do
-        context 'this one argument is a number'do 
+        context 'this one argument is a number' do
           it 'goes over array one by one and returns the vlaue by applying a binary operation, specified by this block with this number as a seed for memo ' do
             expect(array.my_inject(1) { |product, n| product * n }).to eq(array.inject(1) { |product, n| product * n })
-            end
+          end
         end
-        
-      end	
+      end
     end
     context 'a block is not given' do
       context 'this one argument is a symbol' do
-        it "goes over array one by one and returns the vlaue by applying a binary operation, specified by this block based on the binary operation passed as a Symbol in the argument " do
-          expect(range.my_inject(:+)).to eq (range.inject(:+))
+        it 'goes over array one by one and returns the vlaue by applying a binary operation, specified by this block based on the binary operation passed as a Symbol in the argument ' do
+          expect(range.my_inject(:+)).to eq range.inject(:+)
         end
       end
       context 'with two arguments' do
         it "goes over array one by one and returns the vlaue by applying a binary operation, specified by this block based on the binary operation passed as a Symbol in the argument
         with this number as a seed for memo" do
-          expect(array2.my_inject(1, :*)).to eq (array2.inject(1, :*))	
+          expect(array2.my_inject(1, :*)).to eq array2.inject(1, :*)
         end
       end
     end
   end
 end
-
 # rubocop:enable Layout/LineLength

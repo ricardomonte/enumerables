@@ -1,3 +1,4 @@
+# rubocop:disable Layout/LineLength
 require './enumerable'
 
 describe Enumerable do
@@ -159,4 +160,28 @@ describe Enumerable do
       expect(%w[ant tiger cat].my_none?(/t/)).to eq(false)
     end
   end
+
+  describe '#my_count' do
+    context 'with a block given' do
+      it 'it counts the number of elements yielding a true value.' do
+        expect(array.my_count { |num| num >= 2 }).to eq(3)
+        expect(array2.my_count { |num| num == 1 }).to_not eq(array2.length)
+      end
+    end
+    context 'with an argument given' do
+      it 'counts the number of items in the collection that are eql to this argument' do
+        expect(array.my_count(&:even?)).to eq(2)
+        expect(array.my_count(&:odd?)).not_to eq(0)
+      end
+    end
+
+    context 'with (no block && no argument) given' do
+      it 'Returns the number of items in the collection' do
+        expect(array.my_count).to eq(array.length)
+        expect(array.my_count).to_not eq(array.length - 1)
+      end
+    end
+  end
 end
+
+# rubocop:enable Layout/LineLength

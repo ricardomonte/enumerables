@@ -1,4 +1,5 @@
 # rubocop:disable Layout/LineLength
+# rubocop:disable Lint/Void
 
 require './enumerable'
 
@@ -11,9 +12,10 @@ describe Enumerable do
   describe '#my_each' do
     context 'with a block given' do
       it 'return an array' do
-        expect(array.my_each { |num| puts num }).to eq(array.each { |num| puts num })
+        expect(array.my_each { |num| num }).to eq(array.each { |num| num })
       end
     end
+    # rubocop:enable Lint/Void
 
     context 'testing if it yield' do
       it 'with array' do

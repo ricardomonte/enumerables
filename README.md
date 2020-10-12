@@ -30,7 +30,8 @@ You will be redirected to a webpage where you can provide a list of numbers or s
 
     - Open the folder that contains enumerable.rb.
     - from that folder open the terminal.
-    - in the terminal run rspec.
+    - in the terminal run Bundle install
+    - and finally in the terminal run rspec.
 
 ## Author 1
 

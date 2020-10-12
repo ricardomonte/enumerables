@@ -140,7 +140,6 @@ module Enumerable
       var2.my_each { |i| memo = yield(memo, i) }
       return memo
     end
-    #no argumennt
     if arg.empty? 
       var2.my_each { |i| memo = yield(memo, i) }
       return memo

@@ -349,5 +349,20 @@ describe Enumerable do
       end
     end
   end
+
+  describe '#multiply_els' do
+    context 'call my_inject' do
+      context 'with array' do
+        it 'return the multiplication of the elements in the collection' do
+          expect(multiply_els(array)). to eq(array.inject(:*))
+        end
+      end
+      context 'with range' do
+        it 'return the multiplication of the elements in the collection' do
+          expect(multiply_els(range)). to eq(range.inject(:*))
+        end
+      end
+    end
+  end
 end
 # rubocop:enable Layout/LineLength

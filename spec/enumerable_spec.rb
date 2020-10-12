@@ -230,13 +230,11 @@ describe Enumerable do
       context ' with an array' do
         it 'counts the number of elements yielding a true value.' do
           expect(array.my_count { |num| num >= 2 }).to eq(3)
-          expect(array2.my_count { |num| num == 1 }).to_not eq(array2.length)
         end
       end
       context 'with a range' do
         it 'counts the number of elements yielding a true value.' do
           expect(range.my_count { |num| num >= 2 }).to eq(3)
-          expect(range.my_count { |num| num == 1 }).to_not eq(4)
         end
       end
     end
@@ -244,28 +242,23 @@ describe Enumerable do
       context 'with an array' do
         it 'counts the number of items in the collection that are eql to the argument' do
           expect(array.my_count(&:even?)).to eq(2)
-          expect(array.my_count(&:odd?)).not_to eq(0)
         end
       end
       context 'with a range' do
         it 'counts the number of items in the collection that are eql to the argument' do
-          expect(range.my_count(&:even?)).to eq(2)
-          expect(range.my_count(&:odd?)).not_to eq(0)
+          expect(range.my_count(&:even?)).to eq(2)   
         end
       end
     end
-
     context 'with (no block && no argument) given' do
       context 'with an array' do
         it 'Returns the number of items in the collection' do
           expect(array.my_count).to eq(array.length)
-          expect(array.my_count).to_not eq(array.length - 1)
         end
       end
       context 'with a range' do
         it 'Returns the number of items in the collection' do
           expect(range.my_count).to eq(4)
-          expect(range.my_count).to_not eq(3)
         end
       end
     end
@@ -277,14 +270,12 @@ describe Enumerable do
         it 'Returns a new array with the results of running proc once for every element in collection.' do
           proc = proc { |x| x * 2 }
           expect(array.my_map(&proc)).to match_array array2
-          expect(array.my_map(&proc)).to_not match_array array
         end
       end
       context 'with a range' do
         it 'Returns a new array with the results of running proc once for every element in collection.' do
           proc = proc { |x| x * 2 }
-          expect(range.my_map(&proc)).to match_array array2
-          expect(range.my_map(&proc)).to_not match_array array
+          expect(range.my_map(&proc)).to match_array array2      
         end
       end
     end
@@ -293,28 +284,23 @@ describe Enumerable do
       context 'with an array' do
         it 'Returns a new array with the results of running block once for every element in the collection.' do
           expect(array.my_map { |x| x * 2 }).to match_array array2
-          expect(array.my_map { |x| x * 2 }).to_not match_array array
         end
       end
       context 'with a range' do
         it 'Returns a new array with the results of running block once for every element in the collection.' do
-          expect(range.my_map { |x| x * 2 }).to match_array array2
-          expect(range.my_map { |x| x * 2 }).to_not match_array array
+          expect(range.my_map { |x| x * 2 }).to match_array array2   
         end
       end
     end
-
     context 'with (no block && no argument) given' do
       context 'with an array' do
         it 'returns an Enumerator ' do
-          expect(array.my_map.is_a?(Enumerator)).to eq(true)
-          expect(array.my_map.is_a?(Enumerator)).to_not match_array array
+          expect(array.my_map.is_a?(Enumerator)).to eq(true)        
         end
       end
       context 'with a range' do
         it 'returns an Enumerator ' do
           expect(range.my_map.is_a?(Enumerator)).to eq(true)
-          expect(range.my_map.is_a?(Enumerator)).to_not match_array array
         end
       end
     end

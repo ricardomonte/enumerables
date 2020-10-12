@@ -12,7 +12,7 @@ describe Enumerable do
   describe '#my_each' do
     context 'with a block given' do
       it 'return an array' do
-        expect(array.my_each { |num| num }).to eq(array.each { |num| num })
+        expect(array.my_each { |num| num + 1 }).to eq(array.each { |num| num + 1 })
       end
     end
     # rubocop:enable Lint/Void

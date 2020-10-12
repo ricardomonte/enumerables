@@ -246,7 +246,7 @@ describe Enumerable do
       end
       context 'with a range' do
         it 'counts the number of items in the collection that are eql to the argument' do
-          expect(range.my_count(&:even?)).to eq(2)   
+          expect(range.my_count(&:even?)).to eq(2)
         end
       end
     end
@@ -275,7 +275,7 @@ describe Enumerable do
       context 'with a range' do
         it 'Returns a new array with the results of running proc once for every element in collection.' do
           proc = proc { |x| x * 2 }
-          expect(range.my_map(&proc)).to match_array array2      
+          expect(range.my_map(&proc)).to match_array array2
         end
       end
     end
@@ -288,14 +288,14 @@ describe Enumerable do
       end
       context 'with a range' do
         it 'Returns a new array with the results of running block once for every element in the collection.' do
-          expect(range.my_map { |x| x * 2 }).to match_array array2   
+          expect(range.my_map { |x| x * 2 }).to match_array array2
         end
       end
     end
     context 'with (no block && no argument) given' do
       context 'with an array' do
         it 'returns an Enumerator ' do
-          expect(array.my_map.is_a?(Enumerator)).to eq(true)        
+          expect(array.my_map.is_a?(Enumerator)).to eq(true)
         end
       end
       context 'with a range' do

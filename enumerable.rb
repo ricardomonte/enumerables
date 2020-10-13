@@ -1,4 +1,6 @@
 # rubocop:disable all
+
+
 module Enumerable
   def my_each()
     return to_enum(:my_each) unless block_given?
@@ -138,7 +140,7 @@ module Enumerable
       var2.my_each { |i| memo = yield(memo, i) }
       return memo
     end
-    if arg.empty?
+    if arg.empty? 
       var2.my_each { |i| memo = yield(memo, i) }
       return memo
     end
